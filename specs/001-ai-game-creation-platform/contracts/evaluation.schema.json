@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gamerhub.local/schemas/evaluation-report/1.0.0",
+  "title": "Evaluation Report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_id",
+    "run_id",
+    "playtest_run_id",
+    "game_spec_version_id",
+    "status",
+    "assertion_results",
+    "issues"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "report_id": { "type": "string", "format": "uuid" },
+    "run_id": { "type": "string", "format": "uuid" },
+    "playtest_run_id": { "type": "string", "format": "uuid" },
+    "game_spec_version_id": { "type": "string", "format": "uuid" },
+    "status": { "enum": ["passed", "failed", "inconclusive"] },
+    "assertion_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["assertion_id", "status", "evidence_ids"],
+        "properties": {
+          "assertion_id": { "type": "string" },
+          "status": {
+            "enum": ["passed", "failed", "inconclusive", "infra_error"]
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": { "type": "string", "format": "uuid" }
+          },
+          "summary": { "type": "string" }
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "assertion_id",
+          "severity",
+          "category",
+          "description",
+          "expected",
+          "actual",
+          "evidence_ids",
+          "affected_capabilities",
+          "retryable"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{1,63}$"
+          },
+          "assertion_id": { "type": "string" },
+          "severity": { "enum": ["critical", "high", "medium", "low"] },
+          "category": {
+            "enum": [
+              "compile",
+              "runtime",
+              "input",
+              "movement",
+              "physics",
+              "combat",
+              "progression",
+              "ui",
+              "build",
+              "infrastructure"
+            ]
+          },
+          "description": { "type": "string", "minLength": 1 },
+          "expected": {},
+          "actual": {},
+          "evidence_ids": {
+            "type": "array",
+            "items": { "type": "string", "format": "uuid" }
+          },
+          "affected_capabilities": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string" }
+          },
+          "retryable": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

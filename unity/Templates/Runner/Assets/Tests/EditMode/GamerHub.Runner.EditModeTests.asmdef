@@ -1,0 +1,12 @@
+{
+  "name": "GamerHub.Runner.EditModeTests",
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "references": [
+    "GamerHub.Runner"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

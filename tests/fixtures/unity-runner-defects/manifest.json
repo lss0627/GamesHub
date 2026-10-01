@@ -1,0 +1,14 @@
+{
+  "fixture_version": "1.0.0",
+  "defects": [
+    {
+      "id": "coin-score-not-updated",
+      "assertion_id": "coin_scores",
+      "expected": { "score_delta": 10 },
+      "actual": { "score_delta": 0 },
+      "category": "progression",
+      "severity": "high",
+      "affected_capabilities": ["score.read", "coin.pickup"]
+    }
+  ]
+}

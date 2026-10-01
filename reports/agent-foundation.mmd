@@ -1,0 +1,25 @@
+flowchart TD
+  U["创作工作台<br/>多轮讨论 · 确认说明 · 项目记忆"]
+  A["FastAPI / Python<br/>鉴权 · 记忆 API · Pi 生命周期"]
+  C["上下文组装<br/>确认方案 · 项目记忆 · 完整工具交互"]
+  P["官方 Pi Agent Core<br/>模型推理与工具调用循环"]
+  T["Python 工具注册表<br/>参数 · 阶段 · 超时 · 输出 · 幂等记录"]
+  D[("PostgreSQL<br/>项目事实 · 记忆修订 · 最新检查点")]
+  W["现有 TS 领域与 Worker<br/>任务计划 · 素材 · 版本 · 验收"]
+  E["Unity / 受控 CLI<br/>工程文件 · 编译测试 · WebGL 试玩"]
+  U --> A
+  A --> C
+  C -->|"每次请求前投影"| P
+  P -->|"调用请求"| T
+  T -->|"真实结果或错误"| P
+  A <--> D
+  C --> D
+  T --> D
+  T -->|"已确认业务任务"| W
+  T -->|"检查与修复"| E
+  W --> E
+  E -->|"试玩版本与证据"| U
+  classDef control fill:#e6f4ed,stroke:#37745a,color:#19382b
+  classDef execution fill:#eef0fb,stroke:#6475ad,color:#273453
+  class A,C,T,D control
+  class P,W,E execution

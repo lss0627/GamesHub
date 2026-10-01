@@ -1,0 +1,27 @@
+flowchart TB
+  User["用户：创意、审阅与反馈"] --> Studio["Studio 工作台"]
+  Studio --> API["FastAPI：接口、校验与生命周期"]
+  API --> Pi["Pi Agent：模型与工具循环"]
+  Pi <--> Context["上下文预算与项目记忆"]
+  Pi --> Tools["受控工具：阶段、Schema、预算"]
+  API --> Art["素材计划：两套 × 四张"]
+  Art --> Source{"素材来源"}
+  Source --> Builtin["内置 PNG 配色"]
+  Source --> Images["可选：OpenAI Images / 网关"]
+  Builtin --> Assets["PNG 校验、透明背景与资产入库"]
+  Images --> Assets
+  Assets --> Review["选择素材与确认 Spec"]
+  Studio --> Review
+  Review --> Worker["持久任务与 Unity Worker"]
+  Tools --> Worker
+  Worker --> Unity["Unity：编译、测试、试玩与构建"]
+  Unity --> Gate{"验收结果"}
+  Gate -->|"失败，预算内修复"| Pi
+  Gate -->|"通过"| Preview["WebGL 试玩与版本"]
+  Preview --> User
+  API <--> PG[("PostgreSQL：事实、版本、检查点")]
+  Context <--> PG
+  Worker <--> PG
+  Assets --> Store[("MinIO：不可变图片")]
+  PG -.-> Redis["Redis：唤醒，可回退数据库轮询"]
+  Redis -.-> Worker

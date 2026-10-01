@@ -1,0 +1,32 @@
+flowchart TB
+  U["小白创作者<br/>描述想法 · 确认方案 · 试玩反馈"]
+  UI["Next.js 创作台<br/>多轮对话 / Spec / 素材 / 进度 / 版本"]
+  API["FastAPI HTTP 边界<br/>输入校验 · JSON 错误 · 素材处理"]
+  D["TypeScript 领域服务<br/>设计草稿 · 并发版本 · 制作准入"]
+  LLM["模型供应商<br/>理解需求并提出结构化方案"]
+  CAP["共享玩法能力目录<br/>类型 / 系统 / 参数 / 操作 / 验收"]
+  SPEC["用户确认的 GameSpec<br/>版本化制作契约"]
+  PLAN["任务规划器<br/>按玩法和变更生成依赖图"]
+  AGENT["Worker + AgentKernel<br/>计划 → 执行 → 观察 → 重试或停止<br/>任务租约 / 预算 / 检查点 / 事件"]
+  UNITY["Unity Adapter + CLI<br/>独立工程 · 导入素材 · 组装运行时"]
+  RT["Unity 玩法模块<br/>跑酷 / 幸存者与射击 / 点击成长"]
+  GATE["实际玩法测试 → 证据评估 → WebGL 构建"]
+  WEB["不可变试玩版本<br/>成功后切换 · 保留历史恢复"]
+  DB[("PostgreSQL<br/>项目 / Spec / Run / 事件 / 版本")]
+  STORE[("对象存储 + 本地 Unity 工程<br/>素材 / 构建 / 测试证据")]
+  U --> UI --> API
+  API -->|stdio RPC| D
+  D <-->|设计讨论| LLM
+  CAP -.-> D
+  D -->|明确确认后| SPEC --> PLAN --> AGENT
+  CAP -.-> PLAN
+  AGENT --> UNITY --> RT --> GATE --> WEB --> UI
+  CAP -.-> GATE
+  D --- DB
+  AGENT --- DB
+  UNITY --- STORE
+  GATE --- STORE
+  classDef accent fill:#dff4e6,stroke:#287354,color:#153f30
+  classDef storage fill:#eef2ff,stroke:#68749b,color:#293759
+  class U,UI,LLM,CAP,SPEC,WEB accent
+  class DB,STORE storage

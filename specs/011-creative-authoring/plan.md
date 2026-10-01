@@ -1,0 +1,3 @@
+# Implementation plan
+
+Use the shared GameSpec creative extension and existing tenant-scoped design JSON, locking and approved-spec admission. Introduce a strict contract, deterministic interpolation and canonical bounded PCM decoding. Add draft authoring endpoints and model-assisted suggestions with explicit review in the editor. Unity imports assets inside the owned source attempt, renders composition and reacts to existing gameplay telemetry; no additional source ownership bypass. Build results remain subject to existing compile, PlayMode and browser gates. Verify shared contract, durable draft conflicts, audio validation, UI operation, runtime behavior and regression.

@@ -1,0 +1,7 @@
+# Agent evidence contracts
+
+- Worker source hooks execute under current run ownership. Begin is idempotent; failure/cancel settlement archives current source and restores baseline; pause/lost lease do not settle; succeeded publication is never rolled back.
+- workspace_patch input: path, expectedHash, edits[{oldText,newText}], bounded operation count/text size. Every oldText is nonempty and uniquely matches the staged file. All validation completes before backup/write; stale or ambiguous input returns a stable error without mutation. Output: relative path, resulting hash, byte count and applied edit count.
+- New mechanism tasks require Acceptance_01 through Acceptance_N test names (suffixes allowed). Retire uses the same namespace and declared test path, but verifies behavior removal and unaffected baseline behavior. Missing mapping blocks that task.
+- Browser inspector accepts trusted build root and expected identities/config, never a model-supplied URL. It serves only regular files under that root, rejects traversal/symlinks and external network requests, and closes resources even on failure. Failed checks return stable diagnosis plus retained local detail.
+- Public run.delivery.prepared and run.source.recovered summaries contain relative identifiers/counts/check results only. Existing run-event APIs enforce tenant scope. Workbench labels them as successful only with matching committed succeeded run.

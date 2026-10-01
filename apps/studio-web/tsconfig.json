@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": ".next/types",
+    "rootDir": "src",
+    "noEmit": true,
+    "allowJs": false
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", ".next/types/**/*.ts"],
+  "references": [
+    { "path": "../../packages/game-spec" },
+    { "path": "../../packages/contracts" },
+    { "path": "../../packages/observability" }
+  ]
+}

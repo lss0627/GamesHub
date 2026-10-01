@@ -1,0 +1,11 @@
+{
+  "gameName": "Cat Coin Runner",
+  "description": "一只猫咪自动向前奔跑，跳跃躲避障碍并收集金币。",
+  "playerSpeed": 6,
+  "jumpVelocity": 3.5,
+  "scorePerCoin": 10,
+  "spawnIntervalSeconds": 2,
+  "levelDurationSeconds": 60,
+  "playerAssetId": "cat_player",
+  "specVersionId": "template-default"
+}

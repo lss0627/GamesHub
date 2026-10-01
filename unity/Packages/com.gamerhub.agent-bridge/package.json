@@ -1,0 +1,10 @@
+{
+  "name": "com.gamerhub.agent-bridge",
+  "displayName": "GamerHub Agent Bridge",
+  "version": "1.0.0",
+  "unity": "6000.0",
+  "description": "Allowlisted structured Unity editor commands for GamerHub.",
+  "author": {
+    "name": "GamerHub"
+  }
+}

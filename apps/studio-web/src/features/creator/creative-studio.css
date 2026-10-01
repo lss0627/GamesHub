@@ -1,0 +1,316 @@
+.creative-studio {
+  padding: 24px;
+  color: #244746;
+  background: #fbfcf8;
+}
+.creative-studio * {
+  box-sizing: border-box;
+}
+.creative-intro {
+  display: flex;
+  align-items: start;
+  gap: 18px;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.creative-intro span:first-child {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: #637d71;
+}
+.creative-intro h2 {
+  margin: 8px 0;
+  font-size: 23px;
+}
+.creative-studio p {
+  font-size: 12px;
+  line-height: 1.8;
+  color: #657670;
+  margin: 8px 0 12px;
+}
+.creative-status {
+  flex-shrink: 0;
+  border-radius: 20px;
+  padding: 6px 10px;
+  background: #edf3e7;
+  font-size: 11px;
+}
+.creative-toolbar,
+.creative-row,
+.creative-canvas-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.creative-studio button,
+.creative-studio select {
+  border: 1px solid #d4ded2;
+  border-radius: 7px;
+  background: #fff;
+  padding: 8px 10px;
+  font-size: 12px;
+  color: #31524a;
+  cursor: pointer;
+}
+.creative-studio button:disabled,
+.creative-studio fieldset:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.creative-studio button:hover:not(:disabled) {
+  border-color: #599c82;
+  background: #f0f7ef;
+}
+.creative-studio button:focus-visible,
+.creative-stage:focus-visible {
+  outline: 3px solid #69bca0;
+  outline-offset: 2px;
+}
+.creative-studio button.creative-primary {
+  color: white;
+  background: #285d4d;
+}
+.creative-canvas-tools {
+  margin: 16px 0 8px;
+  font-size: 11px;
+  justify-content: space-between;
+}
+.creative-canvas-tools label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.creative-stage-scroll {
+  overflow: auto;
+  border-radius: 10px;
+  background: #0e202a;
+  max-height: 650px;
+  border: 1px solid #254952;
+}
+.creative-stage {
+  min-width: 360px;
+  display: block;
+  max-width: none;
+  touch-action: none;
+  user-select: none;
+}
+.creative-stage [data-node] {
+  cursor: move;
+}
+.creative-stage-text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  font-family: sans-serif;
+  white-space: pre-wrap;
+  line-height: 1.1;
+}
+.creative-details {
+  display: grid;
+  grid-template-columns: minmax(130px, 0.7fr) minmax(220px, 1fr);
+  gap: 16px;
+  padding-top: 18px;
+}
+.creative-studio h3,
+.creative-studio legend {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+.creative-studio h3 small {
+  font-weight: 400;
+  color: #71867b;
+}
+.creative-hierarchy {
+  min-width: 0;
+}
+.creative-hierarchy > div > div button,
+.creative-hierarchy > div > button {
+  width: 100%;
+  text-align: left;
+}
+.creative-hierarchy button.is-selected {
+  border-color: #69a88f;
+  background: #e9f5e9;
+}
+.creative-hierarchy button small {
+  display: block;
+  font-size: 10px;
+  color: #708579;
+  margin-top: 3px;
+}
+.creative-hierarchy > div:not(.creative-row) button {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 4px;
+  overflow-wrap: anywhere;
+}
+.creative-properties {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #dce4d9;
+  border-radius: 9px;
+  margin: 0;
+}
+.creative-studio label {
+  font-size: 11px;
+  line-height: 1.6;
+}
+.creative-properties > label,
+.creative-number-grid > label,
+.creative-timeline > label,
+.creative-import > label {
+  display: block;
+  margin-bottom: 8px;
+}
+.creative-studio
+  input:not([type="checkbox"]):not([type="range"]):not([type="file"]),
+.creative-studio textarea {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccd8cb;
+  border-radius: 6px;
+  font: inherit;
+  color: #244746;
+  background: white;
+  min-width: 0;
+}
+.creative-studio input[type="color"] {
+  height: 33px;
+}
+.creative-studio textarea {
+  min-height: 72px;
+  resize: vertical;
+}
+.creative-number-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+}
+.creative-properties select,
+.creative-number-grid select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+.creative-library,
+.creative-timeline,
+.creative-sounds,
+.creative-assistant,
+.creative-backup {
+  border-top: 1px solid #dce4d8;
+  margin-top: 22px;
+  padding-top: 18px;
+}
+.creative-studio summary {
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.creative-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.creative-heading h3 {
+  margin: 0;
+}
+.creative-timeline input[type="range"] {
+  width: 100%;
+  accent-color: #36795a;
+  margin: 16px 0;
+}
+.creative-tracks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 12px 0;
+}
+.creative-tracks [aria-pressed="true"] {
+  background: #dfeddf;
+  border-color: #599c82;
+}
+.creative-keys {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.creative-keys > div {
+  display: grid;
+  grid-template-columns: auto 100px auto;
+  align-items: center;
+  gap: 6px;
+  background: #f1f4ec;
+  padding: 8px;
+  border-radius: 8px;
+}
+.creative-keys label {
+  font-size: 9px;
+}
+.creative-sound {
+  padding: 12px;
+  border: 1px solid #d8e1d1;
+  border-radius: 9px;
+  margin: 12px 0;
+}
+.creative-import {
+  border: 1px dashed #b9cdb6;
+  padding: 12px;
+  border-radius: 9px;
+}
+.creative-file {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.creative-assistant > button {
+  margin-top: 8px;
+}
+.creative-suggestion {
+  padding: 14px;
+  background: #eaf4e5;
+  margin-top: 12px;
+  border-radius: 8px;
+}
+.creative-suggestion button {
+  margin-right: 8px;
+}
+.creative-studio p.creative-error {
+  color: #982f2e;
+  padding: 10px;
+  background: #fff0ea;
+  border-radius: 8px;
+}
+.creative-studio p.creative-notice {
+  color: #38694e;
+  padding: 8px;
+  background: #edf5e8;
+  border-radius: 8px;
+}
+@media (max-width: 700px) {
+  .creative-studio {
+    padding: 14px;
+  }
+  .creative-details {
+    grid-template-columns: 1fr;
+  }
+  .creative-intro {
+    display: block;
+  }
+  .creative-status {
+    display: inline-block;
+    margin-top: 6px;
+  }
+  .creative-number-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

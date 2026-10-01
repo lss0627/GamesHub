@@ -1,6 +1,7 @@
 node_modules/
 dist/
 build/
+!unity/Packages/com.gamerhub.agent-bridge/Editor/Build/
 .next/
 coverage/
 artifacts/

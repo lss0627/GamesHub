@@ -1,0 +1,89 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: apps/platform-fastapi/requirements.txt
+      - run: pnpm install --frozen-lockfile
+      - run: python -m venv .venv
+      - run: .venv/bin/python -m pip install -r apps/platform-fastapi/requirements.txt
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm verify:agent
+      - run: pnpm test:ui
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: ui-regression-traces
+          path: artifacts/ui-logic-tests
+          if-no-files-found: ignore
+
+  licensed-e2e:
+    if: ${{ vars.GAMERHUB_LICENSED_E2E == 'true' }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 90
+    env:
+      GAMERHUB_REQUIRE_E2E: '1'
+      DATABASE_URL: ${{ secrets.GAMERHUB_DATABASE_URL }}
+      REDIS_URL: redis://127.0.0.1:6379
+      GAMERHUB_API_USER_ID: 00000000-0000-4000-8000-000000000002
+      OBJECT_STORAGE_ENDPOINT: ${{ secrets.GAMERHUB_OBJECT_STORAGE_ENDPOINT }}
+      OBJECT_STORAGE_REGION: ${{ secrets.GAMERHUB_OBJECT_STORAGE_REGION }}
+      OBJECT_STORAGE_BUCKET: ${{ secrets.GAMERHUB_OBJECT_STORAGE_BUCKET }}
+      OBJECT_STORAGE_ACCESS_KEY: ${{ secrets.GAMERHUB_OBJECT_STORAGE_ACCESS_KEY }}
+      OBJECT_STORAGE_SECRET_KEY: ${{ secrets.GAMERHUB_OBJECT_STORAGE_SECRET_KEY }}
+      ASSET_SCANNER_ENDPOINT: ${{ secrets.GAMERHUB_ASSET_SCANNER_ENDPOINT }}
+      ASSET_DECODER_ENDPOINT: ${{ secrets.GAMERHUB_ASSET_DECODER_ENDPOINT }}
+      GAMERHUB_E2E_URL: http://127.0.0.1:3000
+      GAMERHUB_API_URL: http://127.0.0.1:3001
+      GAMERHUB_ACCEPTANCE_URL: http://127.0.0.1:3001
+      GAMERHUB_ACCEPTANCE_EVIDENCE_FILE: ${{ secrets.GAMERHUB_ACCEPTANCE_EVIDENCE_FILE }}
+      GAMERHUB_RELEASE_PREVIEW_EVIDENCE: ${{ secrets.GAMERHUB_RELEASE_PREVIEW_EVIDENCE }}
+      UNITY_EDITOR_PATH: ${{ secrets.UNITY_EDITOR_PATH }}
+      UNITY_GOLDEN_PROJECT: ${{ secrets.UNITY_GOLDEN_PROJECT }}
+      UNITY_LICENSE_REF: ${{ secrets.UNITY_LICENSE_REF }}
+      UNITY_LICENSE_DECISION_REF: ${{ secrets.UNITY_LICENSE_DECISION_REF }}
+      UNITY_LICENSE_APPROVED_CAPACITY: ${{ secrets.UNITY_LICENSE_APPROVED_CAPACITY }}
+      UNITY_LICENSE_EXPIRES_AT: ${{ secrets.UNITY_LICENSE_EXPIRES_AT }}
+      UNITY_WEB_MODULE_READY: '1'
+      GAMERHUB_WORKSPACE_REPO_PATH: ${{ secrets.GAMERHUB_WORKSPACE_REPO_PATH }}
+      GAMERHUB_UNITY_PROJECT_PATH_TEMPLATE: ${{ secrets.GAMERHUB_UNITY_PROJECT_PATH_TEMPLATE }}
+      PLAYTEST_PROBE_ENDPOINT: ${{ secrets.GAMERHUB_PLAYTEST_PROBE_ENDPOINT }}
+      EVALUATOR_ENDPOINT: ${{ secrets.GAMERHUB_EVALUATOR_ENDPOINT }}
+      PREVIEW_PUBLISHER_ENDPOINT: ${{ secrets.GAMERHUB_PREVIEW_PUBLISHER_ENDPOINT }}
+      GAMERHUB_START_SERVICES: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.19.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium firefox webkit
+      - run: pnpm stack:e2e
+      - run: pnpm test:unity:soak
+      - run: pnpm test:e2e
+      - run: pnpm test:reliability
+      - run: pnpm vitest run tests/acceptance/mvp-success-criteria.acceptance.test.ts
+      - if: always()
+        run: pnpm stack:e2e -- --down

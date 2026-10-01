@@ -1,0 +1,52 @@
+%%{init: {"theme": "dark"}}%%
+flowchart TD
+  Creator["Creator prompt"] --> Studio["Studio Web"]
+  Studio --> API["Platform API<br/>Project + Run"]
+  API --> Worker["Orchestrator Worker<br/>lease + workflow"]
+
+  subgraph Intelligence["Constrained intelligence"]
+    Model["DeepSeek provider<br/>schema output only"] --> Spec["Versioned Game Spec"]
+    Spec --> Planner["Deterministic task graph"]
+  end
+
+  Worker --> Model
+  Planner --> Kernel["AgentKernel<br/>plan · act · observe · reflect"]
+  Worker --> Kernel
+
+  subgraph Policy["Runtime guardrails"]
+    Allow["Tool allowlist<br/>model.game-spec.interpret<br/>unity.task.execute"]
+    Budget["Step / call / retry / time budget"]
+    Ledger["Idempotency ledger<br/>policy fingerprint"]
+  end
+
+  Allow --> Kernel
+  Budget --> Kernel
+  Ledger --> Kernel
+  Kernel --> Checkpoint["Checkpoint + replay adapter"]
+  Checkpoint --> Events[("Durable Run events<br/>recovery ledger")]
+  Events --> Trace["Studio Agent trace<br/>creator-safe projection"]
+
+  Kernel -->|"engine_mutation"| UnityTool["UnityTaskExecutor"]
+
+  subgraph Unity["Pinned Unity 6000.0.80f1 session"]
+    UnityTool --> Skills["Runner Game Skills"]
+    Skills --> Adapter["Unity adapter<br/>allowlisted batchmode bridge"]
+    Adapter --> Project["Persistent project workspace"]
+    Project --> Tests["Compile + EditMode + PlayMode"]
+    Tests --> Probe["Playtest + evaluation"]
+    Probe --> Build["WebGL BuildPipeline"]
+  end
+
+  Build --> Gate{"Evidence gate"}
+  Gate -->|"complete"| Preview["Immutable real-unity Preview"]
+  Gate -->|"missing / invalid"| Stop["Fail closed"]
+  Preview --> Result["Playable Studio result"]
+
+  classDef control fill:#101a2a,stroke:#7f9bb5,color:#e8fff9;
+  classDef agent fill:#122e31,stroke:#7cf5df,color:#e8fff9,stroke-width:2px;
+  classDef unity fill:#181a36,stroke:#9b8cff,color:#f4f0ff;
+  classDef danger fill:#361823,stroke:#ff6384,color:#ffe9ee;
+  class Kernel,Allow,Budget,Ledger,Checkpoint agent;
+  class UnityTool,Skills,Adapter,Project,Tests,Probe,Build unity;
+  class Stop danger;
+  class Studio,API,Worker,Events,Trace,Model,Spec,Planner,Preview,Result,Gate control;

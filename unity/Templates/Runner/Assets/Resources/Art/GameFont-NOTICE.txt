@@ -1,0 +1,6 @@
+GameFont is Noto Sans SC Regular, instantiated at weight 400 from the full upstream variable font.
+Upstream: https://github.com/google/fonts/tree/main/ofl/notosanssc
+License: SIL Open Font License 1.1; see GameFont-LICENSE.txt beside this file.
+Prepared 2026-09-08 with fontTools.varLib.instancer; 30,890 Unicode mappings retained.
+The full character set replaces the earlier UI-only subset so creator-provided Chinese titles can render.
+Source download: artifacts/gameplay-extensibility/NotoSansSC-variable.ttf.

@@ -1,0 +1,10 @@
+{
+  "name": "com.gamerhub.playtest-probe",
+  "displayName": "GamerHub Playtest Probe",
+  "version": "1.0.0",
+  "unity": "6000.0",
+  "description": "Deterministic runtime observation and input protocol for validation builds.",
+  "author": {
+    "name": "GamerHub"
+  }
+}

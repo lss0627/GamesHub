@@ -1,0 +1,9 @@
+{
+  "name": "GamerHub.Runner.PlayModeTests",
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
+  "references": [
+    "GamerHub.Runner"
+  ]
+}

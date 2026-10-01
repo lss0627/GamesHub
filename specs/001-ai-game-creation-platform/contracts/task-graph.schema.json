@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gamerhub.local/schemas/task-graph/1.0.0",
+  "title": "Task Graph",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "graph_id",
+    "project_id",
+    "game_spec_version_id",
+    "kind",
+    "tasks"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "graph_id": { "type": "string", "format": "uuid" },
+    "project_id": { "type": "string", "format": "uuid" },
+    "game_spec_version_id": { "type": "string", "format": "uuid" },
+    "kind": {
+      "enum": ["create", "modify", "fix", "rollback", "validate", "publish"]
+    },
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "description",
+          "dependencies",
+          "status",
+          "retry_count",
+          "max_retries",
+          "validation_method",
+          "related_files",
+          "related_scenes",
+          "capabilities"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z][a-zA-Z0-9_-]{1,63}$"
+          },
+          "type": {
+            "enum": [
+              "spec",
+              "scene",
+              "component",
+              "script",
+              "asset",
+              "test",
+              "playtest",
+              "evaluate",
+              "fix",
+              "build",
+              "publish",
+              "rollback"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 6000
+          },
+          "dependencies": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "type": "string" }
+          },
+          "status": {
+            "enum": [
+              "pending",
+              "running",
+              "blocked",
+              "failed",
+              "completed",
+              "cancelled"
+            ]
+          },
+          "retry_count": { "type": "integer", "minimum": 0 },
+          "max_retries": { "type": "integer", "minimum": 0, "maximum": 10 },
+          "validation_method": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type", "reference"],
+            "properties": {
+              "type": {
+                "enum": [
+                  "schema",
+                  "compile",
+                  "editmode_test",
+                  "playmode_test",
+                  "playtest_assertion",
+                  "web_smoke",
+                  "manual_gate"
+                ]
+              },
+              "reference": { "type": "string", "minLength": 1 },
+              "criteria": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 6,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["id", "description", "testPrefix"],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9_]{1,40}\\.0[1-6]$"
+                    },
+                    "description": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 300
+                    },
+                    "testPrefix": {
+                      "type": "string",
+                      "pattern": "^Acceptance_0[1-6]_[a-f0-9]{12}$"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "related_files": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^(?!/)(?!.*\\.\\.).+" }
+          },
+          "related_scenes": { "type": "array", "items": { "type": "string" } },
+          "capabilities": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

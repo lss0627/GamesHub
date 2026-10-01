@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &200000
+GameObject:
+  m_Name: Coin
+  m_TagString: Untagged
+  m_Component:
+  - component: {fileID: 200001}
+  - component: {fileID: 200002}
+  - component: {fileID: 200003}
+--- !u!4 &200001
+Transform:
+  m_GameObject: {fileID: 200000}
+--- !u!114 &200002
+MonoBehaviour:
+  m_GameObject: {fileID: 200000}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0, type: 3}
+  m_EditorClassIdentifier:
+  value: 10
+--- !u!58 &200003
+CircleCollider2D:
+  m_GameObject: {fileID: 200000}
+  m_Enabled: 1
+  m_IsTrigger: 1
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.25

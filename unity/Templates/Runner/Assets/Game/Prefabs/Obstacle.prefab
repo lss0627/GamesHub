@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &300000
+GameObject:
+  m_Name: Obstacle
+  m_TagString: Untagged
+  m_Component:
+  - component: {fileID: 300001}
+  - component: {fileID: 300002}
+  - component: {fileID: 300003}
+--- !u!4 &300001
+Transform:
+  m_GameObject: {fileID: 300000}
+--- !u!61 &300002
+BoxCollider2D:
+  m_GameObject: {fileID: 300000}
+  m_Enabled: 1
+  m_IsTrigger: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 2}
+  m_EdgeRadius: 0
+--- !u!114 &300003
+MonoBehaviour:
+  m_GameObject: {fileID: 300000}
+  m_Enabled: 1
+  m_Script: {fileID: 11500000, guid: b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0, type: 3}
+  m_EditorClassIdentifier:

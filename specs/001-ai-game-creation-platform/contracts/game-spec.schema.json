@@ -1,0 +1,268 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://gamerhub.local/schemas/game-spec/1.0.0",
+  "title": "Game Spec",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "game",
+    "player",
+    "systems",
+    "level",
+    "rules",
+    "ui",
+    "assets",
+    "verification"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "game": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "genre", "target_platform", "template"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "genre": {
+          "enum": [
+            "runner",
+            "platformer",
+            "top_down_shooter",
+            "survivor",
+            "tower_defense",
+            "flappy",
+            "breakout",
+            "clicker",
+            "puzzle",
+            "rpg_dialogue"
+          ]
+        },
+        "target_platform": { "const": "web" },
+        "template": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "maxLength": 2000 }
+      }
+    },
+    "player": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entity_id", "appearance", "movement", "health"],
+      "properties": {
+        "entity_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]{1,63}$" },
+        "appearance": { "$ref": "#/$defs/assetReference" },
+        "movement": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "speed", "jump_height"],
+          "properties": {
+            "type": { "enum": ["side_scroll", "top_down", "fixed"] },
+            "speed": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "maximum": 1000
+            },
+            "jump_height": { "type": "number", "minimum": 0, "maximum": 100 },
+            "air_control": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "health": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["max_hp"],
+          "properties": {
+            "max_hp": { "type": "integer", "minimum": 1, "maximum": 100000 }
+          }
+        }
+      }
+    },
+    "systems": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["system_id", "type", "enabled", "config"],
+        "properties": {
+          "system_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{1,63}$"
+          },
+          "type": {
+            "enum": [
+              "coin_collection",
+              "obstacle",
+              "score",
+              "spawn",
+              "combat",
+              "xp",
+              "level_up",
+              "dialogue",
+              "wave",
+              "checkpoint",
+              "game_over"
+            ]
+          },
+          "enabled": { "type": "boolean" },
+          "config": { "type": "object" }
+        }
+      }
+    },
+    "level": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scene_id", "duration_seconds", "entities"],
+      "properties": {
+        "scene_id": { "type": "string", "pattern": "^[a-z][a-z0-9_]{1,63}$" },
+        "duration_seconds": {
+          "type": "integer",
+          "minimum": 10,
+          "maximum": 3600
+        },
+        "entities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["entity_id", "type"],
+            "properties": {
+              "entity_id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]{1,63}$"
+              },
+              "type": { "type": "string" },
+              "count": { "type": "integer", "minimum": 1, "maximum": 10000 },
+              "properties": { "type": "object" }
+            }
+          }
+        }
+      }
+    },
+    "rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["win_conditions", "lose_conditions"],
+      "properties": {
+        "win_conditions": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/condition" }
+        },
+        "lose_conditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/condition" }
+        }
+      }
+    },
+    "ui": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hud", "game_over", "restart"],
+      "properties": {
+        "hud": {
+          "type": "array",
+          "items": { "enum": ["score", "health", "coins", "timer", "level"] }
+        },
+        "game_over": { "type": "boolean" },
+        "restart": { "type": "boolean" }
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["logical_id", "type", "source"],
+        "properties": {
+          "logical_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{1,63}$"
+          },
+          "type": {
+            "enum": [
+              "sprite",
+              "audio",
+              "font",
+              "animation",
+              "material",
+              "other"
+            ]
+          },
+          "source": { "enum": ["builtin", "placeholder", "upload"] },
+          "asset_id": { "type": "string", "format": "uuid" }
+        }
+      }
+    },
+    "verification": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/assertion" }
+    },
+    "extensions": { "type": "object" }
+  },
+  "$defs": {
+    "assetReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["logical_asset_id"],
+      "properties": {
+        "logical_asset_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{1,63}$"
+        }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["condition_id", "type", "parameters"],
+      "properties": {
+        "condition_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{1,63}$"
+        },
+        "type": {
+          "enum": [
+            "survive_seconds",
+            "score_at_least",
+            "collect_count",
+            "reach_goal",
+            "player_hp_zero",
+            "fall_out",
+            "collision"
+          ]
+        },
+        "parameters": { "type": "object" }
+      }
+    },
+    "assertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assertion_id",
+        "capability",
+        "severity",
+        "preconditions",
+        "actions",
+        "expected"
+      ],
+      "properties": {
+        "assertion_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{1,63}$"
+        },
+        "capability": { "type": "string", "minLength": 1 },
+        "severity": { "enum": ["critical", "high", "medium", "low"] },
+        "preconditions": { "type": "array", "items": { "type": "object" } },
+        "actions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "object" }
+        },
+        "expected": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "object" }
+        },
+        "timeout_ms": { "type": "integer", "minimum": 100, "maximum": 120000 }
+      }
+    }
+  }
+}

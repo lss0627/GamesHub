@@ -1,0 +1,443 @@
+{
+  "fixture_version": "1.0.0",
+  "review_protocol": "two-independent-reviewers-plus-third-reviewer-arbitration",
+  "provenance": {
+    "fixture": true,
+    "source": "frozen-evaluation-fixture",
+    "captured_at": "2026-08-31T00:00:00.000Z"
+  },
+  "cases": [
+    {
+      "id": "runner-reference-001",
+      "capability": "scene",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-002",
+      "capability": "component",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-003",
+      "capability": "input",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-004",
+      "capability": "movement",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-005",
+      "capability": "asset",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-006",
+      "capability": "build",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-007",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-008",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-009",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-010",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-011",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-012",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-013",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-014",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-015",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-016",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-017",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-018",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-019",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-020",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-021",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-022",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-023",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-024",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-025",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-026",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-027",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-028",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-029",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-030",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-031",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-032",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-033",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-034",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-035",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-036",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-037",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-038",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-039",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-040",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-041",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-042",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-043",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-044",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-045",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-046",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-047",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-048",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-049",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-050",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-051",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-052",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-053",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-054",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-055",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-056",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-057",
+      "expected": "passed",
+      "reviewer_a": "passed",
+      "reviewer_b": "passed",
+      "arbitrated": "passed"
+    },
+    {
+      "id": "runner-reference-058",
+      "capability": "input",
+      "expected": "failed",
+      "reviewer_a": "failed",
+      "reviewer_b": "failed",
+      "arbitrated": "failed",
+      "arbitration_reference": "arbitration://runner-reference-058"
+    },
+    {
+      "id": "runner-reference-059",
+      "capability": "movement",
+      "expected": "failed",
+      "reviewer_a": "failed",
+      "reviewer_b": "failed",
+      "arbitrated": "failed",
+      "arbitration_reference": "arbitration://runner-reference-059"
+    },
+    {
+      "id": "runner-reference-060",
+      "capability": "build",
+      "expected": "failed",
+      "reviewer_a": "failed",
+      "reviewer_b": "failed",
+      "arbitrated": "failed",
+      "arbitration_reference": "arbitration://runner-reference-060"
+    }
+  ]
+}

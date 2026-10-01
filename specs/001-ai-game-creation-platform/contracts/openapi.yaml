@@ -1,0 +1,652 @@
+openapi: 3.1.0
+info:
+  title: GamerHub AI Game Creation API
+  version: 1.0.0
+  description: Creator-facing project, run, progress, asset, version and preview API for the Unity MVP.
+servers:
+  - url: /v1
+security:
+  - bearerAuth: []
+paths:
+  /projects:
+    post:
+      operationId: createProject
+      summary: Create an empty game project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  minLength: 1
+                  maxLength: 120
+      responses:
+        "201":
+          description: Project created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        default:
+          $ref: "#/components/responses/Error"
+    get:
+      operationId: listProjects
+      summary: List projects owned by the caller
+      parameters:
+        - $ref: "#/components/parameters/Cursor"
+      responses:
+        "200":
+          description: Project page
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Project"
+                  next_cursor:
+                    type: [string, "null"]
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}:
+    get:
+      operationId: getProject
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Project state summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/runs:
+    post:
+      operationId: createRun
+      summary: Create or modify a game through natural language
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema:
+            type: string
+            minLength: 8
+            maxLength: 200
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [request_type, prompt]
+              properties:
+                request_type:
+                  enum: [create, modify, rollback]
+                prompt:
+                  type: string
+                  minLength: 1
+                  maxLength: 20000
+                base_spec_version_id:
+                  type: [string, "null"]
+                  format: uuid
+      responses:
+        "202":
+          description: Run accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Run"
+        default:
+          $ref: "#/components/responses/Error"
+    get:
+      operationId: listProjectRuns
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - $ref: "#/components/parameters/Cursor"
+      responses:
+        "200":
+          description: Run page
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Run"
+                  next_cursor:
+                    type: [string, "null"]
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/runs/{runId}:
+    get:
+      operationId: getRun
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - $ref: "#/components/parameters/RunId"
+      responses:
+        "200":
+          description: Current run state
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Run"
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/runs/{runId}/cancel:
+    post:
+      operationId: cancelRun
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - $ref: "#/components/parameters/RunId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [reason]
+              properties:
+                reason:
+                  type: string
+                  minLength: 1
+                  maxLength: 500
+      responses:
+        "202":
+          description: Cancellation requested
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Run"
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/runs/{runId}/pause:
+    post:
+      operationId: pauseRun
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - $ref: "#/components/parameters/RunId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [reason]
+              properties:
+                reason:
+                  type: string
+                  minLength: 1
+                  maxLength: 500
+      responses:
+        "202":
+          description: Pause requested; response may remain pause_requested until a safe boundary is reached
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Run"
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/runs/{runId}/resume:
+    post:
+      operationId: resumeRun
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - $ref: "#/components/parameters/RunId"
+      responses:
+        "202":
+          description: Resume requested
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Run"
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/runs/{runId}/events:
+    get:
+      operationId: streamRunEvents
+      summary: Stream creator-visible run events
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - $ref: "#/components/parameters/RunId"
+        - name: Last-Event-ID
+          in: header
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Server-Sent Events stream; event data follows contracts/events.md
+          content:
+            text/event-stream:
+              schema:
+                type: string
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/spec:
+    get:
+      operationId: getCurrentGameSpec
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Current creator-safe Game Spec projection
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameSpecVersion"
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/versions:
+    get:
+      operationId: listVersions
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - $ref: "#/components/parameters/Cursor"
+      responses:
+        "200":
+          description: Human-readable project checkpoint page
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Checkpoint"
+                  next_cursor:
+                    type: [string, "null"]
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/versions/{checkpointId}/restore:
+    post:
+      operationId: restoreVersion
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - name: checkpointId
+          in: path
+          required: true
+          description: GameSpec version ID returned by the version-history endpoint.
+          schema:
+            type: string
+            format: uuid
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        "202":
+          description: Rollback run accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Run"
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/assets:
+    get:
+      operationId: listAssets
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - $ref: "#/components/parameters/Cursor"
+      responses:
+        "200":
+          description: Asset page
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Asset"
+                  next_cursor:
+                    type: [string, "null"]
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/assets/{assetId}/replace:
+    post:
+      operationId: replaceCharacterAsset
+      summary: Queue a validated character-asset replacement run
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - name: assetId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema:
+            type: string
+            minLength: 1
+      responses:
+        "202":
+          description: Replacement run accepted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Run"
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/assets/upload-requests:
+    post:
+      operationId: requestAssetUpload
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [filename, media_type, size_bytes, source, license]
+              properties:
+                filename:
+                  type: string
+                  maxLength: 255
+                media_type:
+                  enum: [image/png, image/jpeg, image/webp]
+                size_bytes:
+                  type: integer
+                  minimum: 1
+                  maximum: 20971520
+                source:
+                  type: string
+                  maxLength: 500
+                license:
+                  type: string
+                  minLength: 1
+                  maxLength: 2000
+      responses:
+        "201":
+          description: Short-lived scoped upload request
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [asset_id, upload_url, expires_at]
+                properties:
+                  asset_id:
+                    type: string
+                    format: uuid
+                  upload_url:
+                    type: string
+                    format: uri
+                  expires_at:
+                    type: string
+                    format: date-time
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/builds:
+    get:
+      operationId: listBuilds
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+        - $ref: "#/components/parameters/Cursor"
+      responses:
+        "200":
+          description: Build page
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Build"
+                  next_cursor:
+                    type: [string, "null"]
+        default:
+          $ref: "#/components/responses/Error"
+  /projects/{projectId}/preview:
+    get:
+      operationId: getProjectPreview
+      parameters:
+        - $ref: "#/components/parameters/ProjectId"
+      responses:
+        "200":
+          description: Current healthy preview
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Preview"
+        default:
+          $ref: "#/components/responses/Error"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    ProjectId:
+      name: projectId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    RunId:
+      name: runId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        type: string
+  responses:
+    Error:
+      description: Structured error
+      content:
+        application/problem+json:
+          schema:
+            $ref: "#/components/schemas/Problem"
+  schemas:
+    Project:
+      type: object
+      required: [id, name, status, engine_type, created_at, updated_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        status:
+          enum: [draft, creating, playable, degraded, archived]
+        engine_type:
+          const: unity
+        current_spec_version_id:
+          type: [string, "null"]
+          format: uuid
+        current_build_id:
+          type: [string, "null"]
+          format: uuid
+        active_run_id:
+          type: [string, "null"]
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Run:
+      type: object
+      required: [id, project_id, request_type, status, fix_iteration, max_fix_iterations, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+        project_id:
+          type: string
+          format: uuid
+        request_type:
+          enum: [create, modify, validate, rollback, publish]
+        status:
+          enum: [queued, planning, waiting_for_engine, executing, playtesting, evaluating, fixing, pause_requested, paused, succeeded, partially_succeeded, failed, cancelled, timed_out]
+        progress:
+          type: object
+          properties:
+            completed:
+              type: integer
+              minimum: 0
+            total:
+              type: integer
+              minimum: 0
+            current_label:
+              type: string
+        fix_iteration:
+          type: integer
+          minimum: 0
+        max_fix_iterations:
+          type: integer
+          minimum: 0
+        result_summary:
+          type: [string, "null"]
+        unresolved_issue_count:
+          type: integer
+          minimum: 0
+        created_at:
+          type: string
+          format: date-time
+        finished_at:
+          type: [string, "null"]
+          format: date-time
+    GameSpecVersion:
+      type: object
+      required: [id, version_number, schema_version, summary, spec, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+        version_number:
+          type: integer
+          minimum: 1
+        schema_version:
+          type: string
+        summary:
+          type: string
+        spec:
+          type: object
+        created_at:
+          type: string
+          format: date-time
+    Checkpoint:
+      type: object
+      required: [id, summary, status, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+        summary:
+          type: string
+        status:
+          enum: [creating, valid, invalid, restored]
+        created_at:
+          type: string
+          format: date-time
+    Asset:
+      type: object
+      required: [id, name, type, source, security_status, import_status]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        type:
+          enum: [sprite, audio, font, animation, material, other]
+        source:
+          enum: [builtin, placeholder, upload]
+        license:
+          type: [string, "null"]
+        security_status:
+          enum: [pending, approved, rejected]
+        import_status:
+          enum: [pending, imported, failed]
+    Build:
+      type: object
+      required: [id, target, status, engine_version, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+        target:
+          const: unity_web
+        status:
+          enum: [building, validating, ready, published, failed, superseded]
+        engine_version:
+          type: string
+        content_hash:
+          type: [string, "null"]
+        created_at:
+          type: string
+          format: date-time
+    Preview:
+      type: object
+      required: [id, build_id, status, url]
+      properties:
+        id:
+          type: string
+          format: uuid
+        build_id:
+          type: string
+          format: uuid
+        status:
+          enum: [provisioning, healthy, unhealthy, disabled]
+        url:
+          type: string
+          format: uri
+        published_at:
+          type: [string, "null"]
+          format: date-time
+    Problem:
+      type: object
+      required: [type, title, status, code, trace_id]
+      properties:
+        type:
+          type: string
+          format: uri-reference
+        title:
+          type: string
+        status:
+          type: integer
+        code:
+          type: string
+        detail:
+          type: string
+        trace_id:
+          type: string
+        retryable:
+          type: boolean
