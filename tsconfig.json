@@ -1,0 +1,25 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/contracts" },
+    { "path": "packages/domain" },
+    { "path": "packages/agent-runtime" },
+    { "path": "packages/model-provider" },
+    { "path": "packages/game-spec" },
+    { "path": "packages/game-planner" },
+    { "path": "packages/game-skills" },
+    { "path": "packages/engine-adapter" },
+    { "path": "packages/unity-adapter" },
+    { "path": "packages/playtest" },
+    { "path": "packages/evaluator" },
+    { "path": "packages/assets" },
+    { "path": "packages/versioning" },
+    { "path": "packages/sandbox" },
+    { "path": "packages/observability" },
+    { "path": "packages/runtime-infra" },
+    { "path": "apps/platform-api" },
+    { "path": "apps/orchestrator-worker" },
+    { "path": "apps/local-dev" },
+    { "path": "apps/studio-web" }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "profile": "unity-runner-v1",
+  "cpu": 4,
+  "memory_mb": 8192,
+  "disk_gb": 20,
+  "pids": 128,
+  "wall_clock_seconds": 1200,
+  "network": "none",
+  "egress_allowlist": [],
+  "root_read_only": true,
+  "workspace_mount": "/workspace/project",
+  "assets_mount": { "path": "/workspace/assets", "read_only": true },
+  "build_mount": "/workspace/build",
+  "drop_capabilities": ["ALL"],
+  "no_new_privileges": true,
+  "seccomp_profile": "default",
+  "run_as_non_root": true,
+  "ulimits": { "nofile": 4096, "core": 0 },
+  "cleanup": { "grace_seconds": 15, "kill_process_tree": true }
+}

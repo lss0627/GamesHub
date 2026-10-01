@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "jsx": "react-jsx",
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@gamerhub/contracts": ["packages/contracts/src/index.ts"],
+      "@gamerhub/domain": ["packages/domain/src/index.ts"],
+      "@gamerhub/agent-runtime": ["packages/agent-runtime/src/index.ts"],
+      "@gamerhub/model-provider": ["packages/model-provider/src/index.ts"],
+      "@gamerhub/game-spec": ["packages/game-spec/src/index.ts"],
+      "@gamerhub/game-planner": ["packages/game-planner/src/index.ts"],
+      "@gamerhub/game-skills": ["packages/game-skills/src/index.ts"],
+      "@gamerhub/engine-adapter": ["packages/engine-adapter/src/index.ts"],
+      "@gamerhub/unity-adapter": ["packages/unity-adapter/src/index.ts"],
+      "@gamerhub/playtest": ["packages/playtest/src/index.ts"],
+      "@gamerhub/evaluator": ["packages/evaluator/src/index.ts"],
+      "@gamerhub/assets": ["packages/assets/src/index.ts"],
+      "@gamerhub/versioning": ["packages/versioning/src/index.ts"],
+      "@gamerhub/sandbox": ["packages/sandbox/src/index.ts"],
+      "@gamerhub/observability": ["packages/observability/src/index.ts"],
+      "@gamerhub/runtime-infra": ["packages/runtime-infra/src/index.ts"]
+    }
+  }
+}

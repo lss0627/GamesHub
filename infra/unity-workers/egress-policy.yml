@@ -1,0 +1,8 @@
+version: 1
+default: deny
+worker_namespace: loopback-only
+allow:
+  - purpose: approved-package-proxy
+    host: package-cache.internal
+    ports: [443]
+    credential: short-lived-scoped

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.11/schema.json",
+  "files": {
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/.venv",
+      "!**/__pycache__",
+      "!**/dist",
+      "!**/build",
+      "!**/Builds",
+      "!unity/LocalProjects",
+      "!unity/Acceptance",
+      "!**/.next",
+      "!**/coverage",
+      "!**/Library",
+      "!**/artifacts",
+      "!**/test-results",
+      "!**/playwright-report",
+      "!docs/architecture/agent-unity-runtime.svg",
+      "!docs/architecture/multigenre-agent.svg",
+      "!docs/architecture/agent-development.svg",
+      "!apps/studio-web/next-env.d.ts"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf"
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended",
+      "a11y": { "useKeyWithClickEvents": "off" }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "trailingCommas": "all",
+      "semicolons": "always"
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": { "organizeImports": "on" }
+    }
+  }
+}
