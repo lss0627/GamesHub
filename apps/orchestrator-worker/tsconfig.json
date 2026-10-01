@@ -1,0 +1,28 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true
+  },
+  "include": ["src/**/*.ts"],
+  "references": [
+    { "path": "../../packages/agent-runtime" },
+    { "path": "../../packages/assets" },
+    { "path": "../../packages/contracts" },
+    { "path": "../../packages/domain" },
+    { "path": "../../packages/engine-adapter" },
+    { "path": "../../packages/game-planner" },
+    { "path": "../../packages/game-spec" },
+    { "path": "../../packages/game-skills" },
+    { "path": "../../packages/model-provider" },
+    { "path": "../../packages/observability" },
+    { "path": "../../packages/sandbox" },
+    { "path": "../../packages/playtest" },
+    { "path": "../../packages/runtime-infra" },
+    { "path": "../../packages/evaluator" },
+    { "path": "../../packages/unity-adapter" },
+    { "path": "../../packages/versioning" }
+  ]
+}

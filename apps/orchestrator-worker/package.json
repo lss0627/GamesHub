@@ -1,0 +1,33 @@
+{
+  "name": "@gamerhub/orchestrator-worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/worker.ts"
+  },
+  "scripts": {
+    "dev": "tsx watch src/worker.ts",
+    "build": "tsc -p tsconfig.json",
+    "lint": "biome check src",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@gamerhub/agent-runtime": "workspace:*",
+    "@gamerhub/assets": "workspace:*",
+    "@gamerhub/contracts": "workspace:*",
+    "@gamerhub/domain": "workspace:*",
+    "@gamerhub/engine-adapter": "workspace:*",
+    "@gamerhub/game-planner": "workspace:*",
+    "@gamerhub/game-skills": "workspace:*",
+    "@gamerhub/game-spec": "workspace:*",
+    "@gamerhub/model-provider": "workspace:*",
+    "@gamerhub/observability": "workspace:*",
+    "@gamerhub/playtest": "workspace:*",
+    "@gamerhub/runtime-infra": "workspace:*",
+    "@gamerhub/sandbox": "workspace:*",
+    "@gamerhub/unity-adapter": "workspace:*",
+    "@gamerhub/versioning": "workspace:*"
+  }
+}

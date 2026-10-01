@@ -1,0 +1,33 @@
+{
+  "name": "@gamerhub/local-dev",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/server.ts"
+  },
+  "scripts": {
+    "dev": "tsx ../../scripts/start-fastapi.ts",
+    "build": "tsc -p tsconfig.json",
+    "lint": "biome check src",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@gamerhub/agent-runtime": "workspace:*",
+    "@gamerhub/assets": "workspace:*",
+    "@gamerhub/domain": "workspace:*",
+    "@gamerhub/engine-adapter": "workspace:*",
+    "@gamerhub/game-planner": "workspace:*",
+    "@gamerhub/game-spec": "workspace:*",
+    "@gamerhub/model-provider": "workspace:*",
+    "@gamerhub/orchestrator-worker": "workspace:*",
+    "@gamerhub/platform-api": "workspace:*",
+    "@gamerhub/runtime-infra": "workspace:*",
+    "@gamerhub/unity-adapter": "workspace:*",
+    "@gamerhub/versioning": "workspace:*",
+    "@playwright/test": "^1.54.0",
+    "sharp": "^0.35.4",
+    "fastify": "^5.5.0"
+  }
+}

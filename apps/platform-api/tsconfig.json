@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "declaration": true
+  },
+  "include": ["src/**/*.ts"],
+  "references": [
+    { "path": "../../packages/model-provider" },
+    { "path": "../../packages/contracts" },
+    { "path": "../../packages/domain" },
+    { "path": "../../packages/observability" },
+    { "path": "../../packages/runtime-infra" },
+    { "path": "../../packages/game-spec" },
+    { "path": "../../packages/versioning" },
+    { "path": "../../packages/assets" }
+  ]
+}
